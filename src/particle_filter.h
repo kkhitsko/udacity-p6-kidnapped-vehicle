@@ -30,7 +30,7 @@ class ParticleFilter {
 	// Number of particles to draw
 	int num_particles; 
 	
-	
+	int step;
 	
 	// Flag, if filter is initialized
 	bool is_initialized;
@@ -38,6 +38,9 @@ class ParticleFilter {
 	// Vector of weights of all particles
 	std::vector<double> weights;
 	
+protected:
+	void printParticle( const Particle &p );
+
 public:
 	
 	// Set of current particles
@@ -45,7 +48,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(0), is_initialized(false) {}
+	ParticleFilter() : num_particles(20), is_initialized(false), step(0) {}
 
 	// Destructor
 	~ParticleFilter() {}
