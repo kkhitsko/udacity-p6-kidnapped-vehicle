@@ -145,12 +145,12 @@ The things the grading code is looking for are:
 ## Result 
 Below are the results with 20 particles:
 
-[Alt text](images/20particles.jpg "Example with 20 particles")
+[Alt text](images/20particles.png "Example with 20 particles")
 
 with 50 particles:
 
-[Alt text](images/50particles.jpg "Example with 50 particles")
+[Alt text](images/50particles.png "Example with 50 particles")
 
 and with 100 particles:
 
-[Alt text](images/100particles.jpg "Example with 100 particles")
+[Alt text](images/100particles.png "Example with 100 particles")
