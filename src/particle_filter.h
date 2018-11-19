@@ -26,6 +26,7 @@ struct Particle {
 
 
 class ParticleFilter {
+private:
 	
 	// Number of particles to draw
 	int num_particles; 
@@ -38,6 +39,9 @@ class ParticleFilter {
 	// Vector of weights of all particles
 	std::vector<double> weights;
 	
+	// Flag, if need to enable debug output
+	bool is_debug;
+
 protected:
 	void printParticle( const Particle &p );
 
@@ -48,7 +52,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(70), is_initialized(false), step(0) {}
+	ParticleFilter() : num_particles(100), is_initialized(false), step(0), is_debug(false) {}
 
 	// Destructor
 	~ParticleFilter() {}
@@ -81,7 +85,7 @@ public:
 	 * @param predicted Vector of predicted landmark observations
 	 * @param observations Vector of landmark observations
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations, double sensor_range);
+	void dataAssociation(const std::vector<LandmarkObs> &predicted, std::vector<LandmarkObs>& observations, double sensor_range);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
@@ -117,6 +121,12 @@ public:
 	*/
 	const bool initialized() const {
 		return is_initialized;
+	}
+	/**
+	 * Enable debug mode
+	 */
+	void setDebugMode() {
+	    is_debug = true;
 	}
 };
 
