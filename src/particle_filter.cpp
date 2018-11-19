@@ -174,16 +174,16 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         particles[i].weight = 1;
 
         /*Calculate the weight of particle based on the multivariate Gaussian probability function*/
-        for (unsigned int k = 0; k < transformed_obs.size(); k++) {
-            double trans_obs_x = transformed_obs[k].x;
-            double trans_obs_y = transformed_obs[k].y;
-            int trans_obs_id = transformed_obs[k].id;
-            double multi_prob = 1.0;
+        for (auto & tr_obs: transformed_obs) {
+            double trans_obs_x = tr_obs.x;
+            double trans_obs_y = tr_obs.y;
+            int trans_obs_id = tr_obs.id;
+            double probability = 1.0;
 
-            for (unsigned int l = 0; l < predicts.size(); l++) {
-                double pred_landmark_x = predicts[l].x;
-                double pred_landmark_y = predicts[l].y;
-                int pred_landmark_id = predicts[l].id;
+            for (auto &pred:  predicts) {
+                double pred_landmark_x = pred.x;
+                double pred_landmark_y = pred.y;
+                int pred_landmark_id = pred.id;
 
                 if (trans_obs_id == pred_landmark_id) {
                     double sigma_x = std_landmark[0];
@@ -198,11 +198,11 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
                     if (is_debug) printf("distance: %f %f; exp: %f\n", distance_x_2, distance_y_2, exponent );
 
-                    multi_prob = gauss_norm * exp(-exponent);
+                    probability = gauss_norm * exp(-exponent);
 
-                    if (is_debug) printf("Particle %d for landmark %d has weight %f %f\n", i, trans_obs_id, multi_prob, particles[i].weight );
+                    if (is_debug) printf("Particle %d for landmark %d has weight %f %f\n", i, trans_obs_id, probability, particles[i].weight );
 
-                    particles[i].weight = particles[i].weight*multi_prob;
+                    particles[i].weight *= probability;
 
                     if (is_debug) printf("Result weight for particle %d: %f\n", i, particles[i].weight );
 
